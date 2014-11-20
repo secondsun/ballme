@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Event extends BasePersistentObject {
+public class InGameEvent extends BasePersistentObject {
     
     @Size(max = 2048)
     private String message;
