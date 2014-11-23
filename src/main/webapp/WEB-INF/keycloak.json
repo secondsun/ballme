@@ -1,0 +1,7 @@
+{
+  "realm": "ballme",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCKdUfxPh1KW4E6fUEEXMCPunmif6hIBeUKX/sLUuCzgFs4DbJGoQ5vDlwFpewBV3D/6eqQPlZq1jDm6C7juaTReFWh86qt96SaB0JKhBEmECmZgjUkGziq5NrfgTEu7LzmdQI+mCI5v9/VowtPwPXvQHludTDw7YEjz/9GkN0YwQIDAQAB",
+  "bearer-only": true,
+  "ssl-required": "all",
+  "resource": "rest-server"
+}
