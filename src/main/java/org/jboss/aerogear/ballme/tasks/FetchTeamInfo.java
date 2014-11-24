@@ -37,14 +37,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.enterprise.context.ApplicationScoped;
 import javax.imageio.ImageIO;
-import javax.persistence.PersistenceContextType;
 import net.saga.googleimagegetter.Getter;
 import org.jboss.aerogear.ballme.vo.Team;
 
@@ -63,9 +59,9 @@ public class FetchTeamInfo {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void checkTeamInfo() {
         List teamList = em.createQuery("from Team t").getResultList();
-        if (teamList.isEmpty()) {
+        
             refreshInfo();
-        }
+        
     }
     
     @Schedule(dayOfWeek="Sun", hour="0")
@@ -84,16 +80,21 @@ public class FetchTeamInfo {
             for (ConferenceType conference : division.getConference()) {
                 for (SubdivisionType subdivision : conference.getSubdivision()) {
                     for (TeamType team : subdivision.getTeam()) {
-                        LOG.log(Level.INFO, team.getMarket() + " " + team.getName());
+                        
                         Team t = new Team();
                         t.setName(team.getMarket() + " " + team.getName());
-                        byte[] imageData = Getter.getImage(t.getName(), System.getProperty("cse.key"), System.getProperty("cse.id"));
-                        BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
-                        Palette p = Palette.generate(image, 4);
-                    
-                        t.setColor(p.getVibrantColor(0x000));
-                        t.setPicture(imageData);
-                        em.persist(t);
+                        if(em.createQuery("from Team t where t.name = :name").setParameter("name", t.getName()).getResultList().isEmpty()) {
+                            LOG.log(Level.INFO, "Adding " + team.getMarket() + " " + team.getName());
+                            byte[] imageData = Getter.getImage(t.getName(), System.getProperty("cse.key"), System.getProperty("cse.id"));
+                            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+                            Palette p = Palette.generate(image, 4);
+
+                            t.setColor(p.getVibrantColor(0x000));
+                            t.setPicture(imageData);
+                            em.persist(t);
+                        } else {
+                        LOG.log(Level.INFO, "Found " + team.getMarket() + " " + team.getName());    
+                        }
                     }
                 }
             }

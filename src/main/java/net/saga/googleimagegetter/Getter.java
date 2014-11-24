@@ -28,8 +28,9 @@ public class Getter {
             JsonObject item0 = json.getAsJsonObject().get("items").getAsJsonArray().get(0).getAsJsonObject();
             
             String imageURL;
-            
-            if (item0.has("pagemap")) {
+            if ("UNLV Rebels".equals(query.trim())) {
+                imageURL = "http://content.sportslogos.net/logos/35/888/full/9062_unlv_rebels-secondary-2006.png";
+            } else if (item0.has("pagemap")) {
                 imageURL = item0.get("pagemap").getAsJsonObject().get("cse_image").getAsJsonArray().get(0).getAsJsonObject().get("src").getAsString();
             } else {
                 imageURL = item0.get("link").getAsString();
