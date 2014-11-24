@@ -12,5 +12,5 @@ Will build and test everything.
 
 ## Running
 
-Deploy to WildFly, create a datasource named jboss/datasources/ExampleDS
+Deploy to WildFly, create a datasource named jndi/ballme
 

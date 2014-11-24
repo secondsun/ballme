@@ -17,17 +17,8 @@
 package org.jboss.aerogear.ballme.service;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -43,9 +34,6 @@ public class AccountService {
     
     @PersistenceContext
     private EntityManager em;
-    
-    @Inject
-    private UserTransaction utx;
     
     @POST
     public Person create(Person person) {
