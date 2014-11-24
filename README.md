@@ -14,3 +14,10 @@ Will build and test everything.
 
 Deploy to WildFly, create a datasource named jndi/ballme
 
+You also need to set the following system settings : 
+         
+ * sportsdata.api.key Sports Data Key
+ * cse.key Google Custom Search Engine Key
+ * cse.id Google Custom Search Ending Id.
+
+
